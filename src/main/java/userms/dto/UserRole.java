@@ -1,24 +1,24 @@
 package userms.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author ZHZ
  */
 @Getter
 @Setter
-public class UserRole implements Serializable {
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class UserRole extends PagingParam {
     private Integer n_id;
     private Integer u_id;
     private Integer r_id;
-
-    /*
-    private String uName;
-    private String rName;
-     */
+    private List<Role> role;
+    private List<User> user;
 
     public UserRole(){}
 
@@ -26,10 +26,6 @@ public class UserRole implements Serializable {
         this.n_id = n_id;
         this.u_id = u_id;
         this.r_id = r_id;
-        /*
-        this.uName = uName;
-        this.rName = rName;
-         */
     }
 
     @Override

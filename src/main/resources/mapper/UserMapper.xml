@@ -3,14 +3,39 @@
 <mapper namespace="userms.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="userms.dto.User" >
         <result column="id" property="id" />
-        <result column="uName" property="uName" />
-        <result column="uPhone" property="uPhone" />
-        <result column="uPswd" property="uPswd" />
+        <result column="uName" property="userName" />
+        <result column="uPhone" property="userPhone" />
+        <result column="uPswd" property="userPswd" />
     </resultMap>
     <select id="selectById" resultMap="BaseResultMap">
         SELECT user_t.uName,user_t.uPhone,user_t.uAdrs,user_t.uPswd FROM user_t WHERE user_t.id = #{id}
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT * FROM user_t
+    </select>
+    <select id="deleteById">
+        DELETE FROM user_t WHERE id = #{id}
+    </select>
+    <select id="insertUser" parameterType="userms.dto.User">
+        INSERT INTO user_t (uName, uPswd, uAdrs, id, uPhone)
+        VALUES (#{userName}, #{userPswd}, #{userAdrs}, #{id},#{userPhone})
+    </select>
+    <select id="updateUser" parameterType="userms.dto.User">
+        UPDATE user_t
+        <set>
+            <if test="userName != 'null' and userName != null">
+                uName = #{userName},
+            </if>
+            <if test="userPswd != 'null' and userPswd != null">
+                uPswd = #{userPswd},
+            </if>
+            <if test="userAdrs != 'null' and userAdrs != null">
+                uAdrs = #{userAdrs},
+            </if>
+            <if test="userPhone != 'null' and userPhone != null">
+                uPhone = #{userPhone},
+            </if>
+        </set>
+        WHERE id = #{id}
     </select>
 </mapper>

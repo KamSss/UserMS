@@ -1,10 +1,7 @@
 package userms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import userms.dto.Role;
 import userms.service.RoleService;
 
@@ -25,9 +22,9 @@ public class RoleController {
         return roleService.selectById(id);
     }
 
-    @GetMapping("/selectAll")
-    public List<Role> selectAll(){
+    @PostMapping("/selectAll")
+    public List<Role> selectAll(@RequestBody Role role){
         System.out.println("RoleSelectAll");
-        return roleService.selectAll();
+        return roleService.selectAll(role.getPageNum(),role.getPageSize());
     }
 }

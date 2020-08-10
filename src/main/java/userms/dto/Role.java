@@ -1,5 +1,6 @@
 package userms.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,8 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class Role implements Serializable {
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class Role extends PagingParam  {
     private Integer rId;
     private String rName;
 

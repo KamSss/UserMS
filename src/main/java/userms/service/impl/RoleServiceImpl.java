@@ -1,10 +1,11 @@
-package userms.service;
+package userms.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import userms.dto.Role;
-import userms.dto.User;
 import userms.mapper.RoleMapper;
+import userms.service.RoleService;
 
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> selectAll() {
+    public List<Role> selectAll(Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         return roleMapper.selectAll();
     }
 

@@ -1,5 +1,6 @@
 package userms.service;
 
+import userms.dto.PagingParam;
 import userms.dto.User;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public interface UserService {
     User selectById(Integer u_id);
-    List<User> selectAll();
-
+    List<User> selectAll(Integer pageNum,Integer pageSize);
+    void deleteById(Integer id);
+    void insertUser(User user);
+    void updateUser(User user);
 }

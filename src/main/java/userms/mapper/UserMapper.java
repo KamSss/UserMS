@@ -1,7 +1,9 @@
 package userms.mapper;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import userms.dto.PagingParam;
 import userms.dto.User;
 
 import java.util.List;
@@ -23,4 +25,19 @@ public interface UserMapper {
      * @return User对象
      */
     List<User> selectAll();
+    /**
+     * id删除
+     * @param id user_t表的主键
+     */
+    void deleteById(@Param("id") int id);
+    /**
+     * 插入user
+     * @param user 插入一个新用户
+     */
+    void insertUser(User user);
+    /**
+     * 修改user
+     * @param user 更新用户
+     */
+    void updateUser(User user);
 }

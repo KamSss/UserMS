@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userms.mapper.UserRoleMapper">
-    <resultMap id="BaseResultMap" type="userms.dto.UserRole" >
-        <result column="n_id" property="n_id" />
+    <resultMap id="BaseAllMap" type="userms.dto.UserRole" >
+        <id column="n_id" property="n_id" />
         <result column="u_id" property="u_id" />
         <result column="r_id" property="r_id" />
-        <result column="uName" property="uName" />
-        <result column="r_name" property="rName" />
+        <collection property="role" javaType="list" ofType="Role">
+            <id property="rId" column="r_id" />
+            <result property="rName" column="r_name" />
+        </collection>
+        <collection property="user" javaType="list" ofType="User">
+            <id property="id" column="id" />
+            <result property="userName" column="uName" />
+        </collection>
     </resultMap>
-    <select id="selectById" resultMap="BaseResultMap">
-        SELECT user_t.uName,role_t.r_name FROM user_t,role_t,user_role
-        WHERE user_t.id = user_role.u_id AND role_t.r_id = user_role.r_id;
+    <resultMap id="BaseTestMap" type="userms.dto.UserRole" >
+        <id column="n_id" property="n_id" />
+        <result column="u_id" property="u_id" />
+        <result column="r_id" property="r_id" />
+        <collection property="role" javaType="list" ofType="Role">
+            <id property="rId" column="r_id" />
+            <result property="rName" column="r_name" />
+        </collection>
+    </resultMap>
+    <select id="selectUserRoleAll" resultMap="BaseAllMap">
+        SELECT
+        user_role.n_id,user_role.u_id,user_t.id,user_t.uName,role_t.r_name
+        FROM
+        user_t,role_t,user_role
+        WHERE
+        user_t.id = user_role.u_id
+        AND
+        role_t.r_id = user_role.r_id
     </select>
-
-
+    <select id="selectRoleTest" resultMap="BaseTestMap">
+        SELECT
+        user_role.r_id,user_role.u_id,role_t.r_name
+        FROM
+        user_role,role_t
+        WHERE
+        role_t.r_id = user_role.r_id
+    </select>
+    <select id="distributionRole" resultMap="BaseAllMap">
+        INSERT INTO
+        user_role
+        VALUES (#{n_id},#{u_id},#{r_id})
+    </select>
 </mapper>

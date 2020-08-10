@@ -1,12 +1,11 @@
 package userms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import userms.dto.PagingParam;
 import userms.dto.User;
 import userms.service.UserService;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,9 +23,32 @@ public class UserController {
         return userService.selectById(id);
     }
 
-    @GetMapping("/selectAll")
-    public List<User> selectAll() {
+    @PostMapping("/selectAll")
+    public List<User> selectAll(@RequestBody User user) {
         System.out.println("UserSelectAll");
-        return userService.selectAll();
+        return userService.selectAll(user.getPageNum(),user.getPageSize());
     }
+
+    @GetMapping("/deleteById")
+    public List<User> deleteById(@RequestParam(value = "id") Integer id){
+        System.out.println("deleteById");
+        userService.deleteById(id);
+        return userService.selectAll(1,5);
+    }
+
+    @PostMapping("/insert")
+    public List<User> insertUser(@RequestBody User user){
+        System.out.println("insertUser");
+        userService.insertUser(user);
+        return userService.selectAll(user.getPageNum(),user.getPageSize());
+    }
+
+    @PostMapping("/update")
+    public List<User> updateUser(@RequestBody User user){
+        System.out.println("updateUser");
+        userService.updateUser(user);
+        return userService.selectAll(user.getPageNum(),user.getPageSize());
+    }
+
+
 }

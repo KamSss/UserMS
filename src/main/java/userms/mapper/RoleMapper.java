@@ -14,7 +14,7 @@ import java.util.List;
 public interface RoleMapper {
     /**
      * 通过id查询
-     * @param id
+     * @param id 对象
      * @return Role对象
      */
     Role selectById(@Param("id") Integer id);

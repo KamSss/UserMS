@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface RoleService {
     Role selectById(Integer r_id);
-    List<Role> selectAll();
+    List<Role> selectAll(Integer pageNum,Integer pageSize);
 }
